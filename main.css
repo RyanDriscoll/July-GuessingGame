@@ -1,0 +1,35 @@
+
+
+img.resize{
+	max-width:20%;
+	max-height:20%;
+   	display: block;
+	margin: auto;
+}
+
+body {
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    text-align: center;
+
+div {
+	border-radius: 5px;
+	border: 2px solid #6495ED;
+	background-color: #BCD2EE;
+	height: 50px;
+	width: 120px;
+	margin: auto;
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color: #3D59AB;
+	font-family: Verdana, sans-serif;
+}
+
+span {
+	font-weight: bold;
+	font-size: 18px;
+	color: #ffffff;
+}

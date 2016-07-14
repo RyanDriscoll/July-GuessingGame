@@ -13,20 +13,21 @@
     	<section>
     		<img class="face" src= "Driz-Ballz-v2-mustard-cropped.jpg"/>
 
-      	<p>Choose a number between 1 and 100:</p>
+      		<p id="question">Choose a number between 1 and 100:</p>
 
-    	<form>
-        	<input type="text" name="number">
-		</form>
+    		<form>
+        		<input id="guess" type="text" name="number"><br>
+				<input class="submit" type="submit">
+			</form>
 
-  		<button id="submit">Submit</button>
+  			
 
-		<button id="tryAgain">Try again</button>
+			<button id="tryAgain">Try again</button>
 
-		<button id="hint">Hint</button>
+			<button id="hint">Hint</button>
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 		<script src='guessingGame.js'></script>
-    	
+    	</section>
   	</body>
 </html>

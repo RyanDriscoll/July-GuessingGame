@@ -13,15 +13,18 @@ var winningNumber = generateWinningNumber();
 // Generate the Winning Number
 
 function generateWinningNumber(){
-	return Math.floor(Math.random()*100) + 1;
+	var num = Math.floor(Math.random()*100) + 1;
+	console.log(num);
+
 }
+
 
 // Fetch the Players Guess
 
 function playersGuessSubmission(){
-	
-	playersGuess = +$("input[name=number]").val();
-	$("input[name=number]").val("");
+	playersGuess = +document.getElementById("guess").value;
+	console.log(playersGuess);
+	document.getElementById('guess').value = "";
 	checkGuess();
 
 	// return playersGuess;
@@ -37,9 +40,9 @@ function lowerOrHigher(){
 // Check if the Player's Guess is the winning number 
 
 function checkGuess(){
-	$('.face').animate({marginLeft: '10px'}, 500);
 	if (playersGuess === winningNumber) {
-		$('.face').append('<p id="winner">You Win!</p>');
+		$('#question').append('<p id="winner">You Win!</p>');
+
 
 	}
 }
@@ -56,19 +59,21 @@ function playAgain(){
 	// add code here
 }
 
+function moveFace(){
+	debugger;
+	$('img').animate({left: '+=100px'}, 500);
+}
+
 /* **** Event Listeners/Handlers ****  */
 
 $(document).ready(function() {
 
-	$('button').focus(function() {
+	$('button, input').focus(function() {
         $(this).css('outline-color', '#009933');
     });
 
-	$('input').focus(function() {
-        $(this).css('outline-color', '#009933');
-    });
     
-    $('button').hover(
+    $('button, .submit').hover(
     function() {
         $(this).addClass('highlight');
     },
@@ -76,7 +81,7 @@ $(document).ready(function() {
     	$(this).removeClass('highlight');
     })
 
-    $('#submit').click(function() {
+    $('.submit').click(function() {
 		playersGuessSubmission();
 	});
 

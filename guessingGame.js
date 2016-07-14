@@ -25,7 +25,6 @@ function playersGuessSubmission(){
 	playersGuess = +document.getElementById("guess").value;
 	console.log(playersGuess);
 	document.getElementById('guess').value = "";
-	checkGuess();
 
 	// return playersGuess;
 
@@ -83,6 +82,8 @@ $(document).ready(function() {
 
     $('.submit').click(function() {
 		playersGuessSubmission();
+		checkGuess();
+
 	});
 
 }); 

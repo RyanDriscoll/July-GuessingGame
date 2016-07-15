@@ -4,14 +4,22 @@
 
 .face{
 	position: relative;
-	max-width:50%;
-	max-height:50%;
-	display: inline-block;
-	margin: 10px 75px;
+	max-width:150px;
+	max-height:182px;
+	display: inline;
+	margin: 10px 0px;
+	z-index: 1;
 }
 
-.winner {
-	font-size: 18px;
+#announcement {
+	position: relative;
+	height: 182px;
+	width: 135px;
+	margin-top: 30px;
+	margin-right: 10px;
+	display: none;
+	float: right;
+	font-size: 25px;
 }
 
 body {
@@ -32,7 +40,7 @@ section {
 	border-radius: 20px;
 	border: 2px solid #004d1a;
 	height: 450px;
-	width: 300px;
+	width: 400px;
 	margin: auto;
 }
 

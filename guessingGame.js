@@ -1,10 +1,11 @@
 /* **** Global Variables **** */
 // try to elminate these global variables in your project, these are here just to start.
 
-//(function(){
+(function(){
 var called = false;
 var arrayOfGuesses = [];
 var playersGuess;
+var hintCount = 0;
 
 var winningNumber = generateWinningNumber();
 
@@ -18,33 +19,29 @@ function generateWinningNumber(){
 	return num;
 }
 
-
+function changeAnn(str) {
+	$('#message').empty();
+	$('#message').append(str);
+	$('#announcement').fadeIn('slow');
+}
 // Fetch the Players Guess
 
 function playersGuessSubmission(){
 	playersGuess = +document.getElementById("guess").value;
-	arrayOfGuesses.push(playersGuess);
-	console.log(arrayOfGuesses);
-	if (arrayOfGuesses.length === 5) {
-		alert("Game over!");
-	}
+	console.log(playersGuess);
 	document.getElementById('guess').value = "";
+	checkGuess();
 
-	// return playersGuess;
-
-	// add code here
 }
 
 // Determine if the next guess should be a lower or higher number
 
 function lowerOrHigher(){
 	if (playersGuess > winningNumber) {
-		$('#announcement h1').replaceWith("Nope, try a lower number");
-		$('#announcement').delay(1000).fadeIn('slow');
+		changeAnn("Nope, try a lower number");
 
 	} else {
-		$('#announcement h1').replaceWith("Higher than that!");
-		$('#announcement').delay(1000).fadeIn('slow');
+		changeAnn("Higher than that!");
 	}
 }
 
@@ -52,42 +49,69 @@ function lowerOrHigher(){
 
 function checkGuess(){
 	if (playersGuess === winningNumber) {
-		//$('.face').css('position', 'static');
-		$('#announcement h1').replaceWith("YOU WIN!");
-		$('#announcement').delay(1000).fadeIn('slow');
-		//alert("You guessed my lucky number!")
-		//$('.face').after('<div id="winner"><br><h1>You Win!</h1></div>');
-	} else {
-		lowerOrHigher();
+		moveSection();
+		changeAnn("YOU WIN!")
 
+	} else {
+		if (arrayOfGuesses.includes(playersGuess)) {
+			$('#announcement').fadeOut('fast');	
+			changeAnn("You already guessed that number");
+		} else {
+			arrayOfGuesses.push(playersGuess);
+			if (arrayOfGuesses.length === 5){
+				changeAnn("Game Over!");
+				$('#tryAgain').css('background', 'red');
+				console.log(arrayOfGuesses);
+
+			} else {
+				lowerOrHigher();
+			}
+		}
 	}
 }
 
+function shuffle(array) {
+	var currentIndex = array.length, temporaryValue, randomIndex;
+
+  	while (0 !== currentIndex) {
+
+    	randomIndex = Math.floor(Math.random() * currentIndex);
+    	currentIndex -= 1;
+    	temporaryValue = array[currentIndex];
+    	array[currentIndex] = array[randomIndex];
+    	array[randomIndex] = temporaryValue;
+  	}
+  	return array;
+}
 
 
 // Create a provide hint button that provides additional clues to the "Player"
 
 function provideHint(){
-	// add code here
+	var guessesLeft = (5 - (arrayOfGuesses.length));
+	var hintArray = [winningNumber];
+	for (var i = 1; i < 2*guessesLeft; i++) {
+		var rand = generateWinningNumber();
+		hintArray.push(rand);
+	}
+	shuffle(hintArray);
+	changeAnn("One of these is the answer: " + hintArray);
 }
-
-// Allow the "Player" to Play Again
-
-function playAgain(){
-	// add code here
+function moveSection(){
+	$('section').animate({top: '+= 100px'}, 500);
 }
 
 function moveFaceLeft(){
 	if (called === false) {
 		$('.face').animate({right: '+=80px'}, 500).delay(1000);
 		called = true;
-		//
 	}
 }
 
 /* **** Event Listeners/Handlers ****  */
 
 $(document).ready(function() {
+
 
 	$('button, input').focus(function() {
         $(this).css('outline-color', '#009933');
@@ -100,15 +124,41 @@ $(document).ready(function() {
     },
     function() {
     	$(this).removeClass('highlight');
-    })
+    });
+
+    $('#hint').click(function() {
+    	if (hintCount === 2) {
+    		changeAnn("No more hints. Good luck!");
+    	} else {
+    		$('#announcement').fadeOut('fast');	
+    		moveFaceLeft();
+    		provideHint();
+    		hintCount++;
+   		}
+    });
+
+    $('#tryAgain').click(function() {
+    	location.reload();
+    });
 
     $('.submit').click(function() {
-    	moveFaceLeft();
+    	$('#announcement').fadeOut('fast');	
+   		moveFaceLeft();
 		playersGuessSubmission();
-		checkGuess();
 
 	});
 
-}); 
+	$('#guess').keyup(function(event){
+    	if(event.keyCode == 13) {
+        	$(".submit").click();
+        }
+    });
+});
 
-//})(); 
+
+})(); 
+
+
+
+
+

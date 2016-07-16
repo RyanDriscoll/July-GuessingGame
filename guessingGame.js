@@ -51,6 +51,7 @@ function checkGuess(){
 	if (playersGuess === winningNumber) {
 		moveSection();
 		changeAnn("YOU WIN!")
+		faceDance();
 
 	} else {
 		if (arrayOfGuesses.includes(playersGuess)) {
@@ -65,6 +66,7 @@ function checkGuess(){
 
 			} else {
 				lowerOrHigher();
+				faceWag();
 			}
 		}
 	}
@@ -99,6 +101,24 @@ function provideHint(){
 }
 function moveSection(){
 	$('section').animate({top: '+= 100px'}, 500);
+}
+
+function faceDance() {
+	if (called === true) {
+		for (var i = 0; i < 5; i++) {
+			$('.face').animate({top: '+=10px'}, 200);
+			$('.face').animate({top: '-=10px'}, 200);
+		}
+	}
+}
+
+function faceWag() {
+	if (called === true) {
+		for (var i = 0; i < 4; i++) {
+			$('.face').animate({right: '+=10px'}, 200);
+			$('.face').animate({right: '-=10px'}, 200);
+		}
+	}
 }
 
 function moveFaceLeft(){
